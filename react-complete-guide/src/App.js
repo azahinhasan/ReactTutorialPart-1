@@ -1,17 +1,33 @@
-//import React, { useState } from 'react'; for Hook
 import React, { Component } from 'react';
 import './App.css';
-import  Radium  ,{ StyleRoot }from 'radium';
+//import  Radium  ,{ StyleRoot }from 'radium';  //comment out coz using styled-components.com
 /*install Radum package by typing in project 
 folder 'npm install -- save radium'
 Radium is a most propuler package for raact which allow us
 us to use inline style with sudo Selector[Ex: .mover]*/
 //StyleRoot using for rap all function from Person.js
 
+import styled from 'styled-components';
 import Person from './Person/Person';
 
 //import './Person/Person.css';
 
+
+const StyleButton = styled.button`
+     // background-Color: white;
+     background-color: ${props => props.alt ? 'red' : 'green'}; 
+     //if alt is true clolor gonna be red
+      font: inherit;
+      border: 1x solid blue;
+      padding: 8px;
+      cursor: pointer;
+
+      &:hover {  //hover called Sude Selector
+        //& will say his hover is with this button which is split-out
+        background-Color: black;
+        color: white;
+      }
+`;
 
 class App extends Component {   
   state={
@@ -84,18 +100,19 @@ class App extends Component {
   }
 
   render() {
-    const style = {  //its call inline styling
+      /* this part was for radium
+      const style = {  //its call inline styling 
       backgroundColor: 'white',
       font: 'inherit',
       border: '1x solid blue',
       padding: '8px',
       cursor: 'pointer',
       ':hover' : {  //hover called Sude Selector
-        //to use it here have to install Radium Instration on the Top
+      ///to use it here have to install Radium Instration on the Top
         backgroundColor: 'black',
         color: 'white'
       }
-    };
+    };*/
 
     
     let persons = null;
@@ -138,11 +155,11 @@ class App extends Component {
        */}
         </div>
       );
-      style.backgroundColor = 'red';
+      /*style.backgroundColor = 'red'; //it was for radium
       style[':hover']= {
         backgroundColor:'green',
         color:'white'
-      }
+      }*/
     }
 
     //let classes = ['red' , 'bold'].join(' ');
@@ -156,7 +173,7 @@ class App extends Component {
     }
 
     return (
-    <StyleRoot>
+    //<StyleRoot>
     <div className="App">
       {/*<h1 className={classes}>HI I am Zahin</h1>*/}
 
@@ -179,11 +196,13 @@ class App extends Component {
       <br></br>
 
 
-      <button
-      style={style} 
+      <StyleButton /*button*/
+      //style={style} //no need for  styled compornet
+      alt = {this.state.showPersons}  
+      //alt just a variable which is passing value of this.state.showPersons
       onClick={this.togglePersonsHandler}>
-        Show Names
-      </button>
+        Show Names 
+       </StyleButton>
         
      
       {persons}
@@ -197,16 +216,16 @@ class App extends Component {
         </Person>
   */}
     </div>
-    </StyleRoot>
+    //</StyleRoot>
      //React.createElement('div',{className:'App'},React.createElement('h1',null,'h1','hi im zahin'))  //JSX its give acess html write in JS file
 
     );
   }
 }
 
-//export default App;
+export default App;
 
-export default Radium(App);
+//export default Radium(App);
  
 //its called HigherOrder compornent
 
