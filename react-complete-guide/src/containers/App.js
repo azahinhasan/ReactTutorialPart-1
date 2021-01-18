@@ -12,13 +12,15 @@ us to use inline style with sudo Selector[Ex: .mover]*/
 //StyleRoot using for rap all function from Person.js
 
 //import styled from 'styled-components';
-import Person from './Person/Person';
+import Person from '../components/Persons/Person/Person';
 
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
+import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 // ^this import for find or detect error
 
-
 //import './Person/Person.css';
+
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/cockpit/Cockpit';
 
 
 /*const StyleButton = styled.button`
@@ -124,16 +126,22 @@ class App extends Component {
 
     
     let persons = null;
-    let btnClass = [classes.Button]; 
+   
     // ^ avable by Eject npm moduel
     //classes.Button is the pointer of CSS moduel package 
 
     if(this.state.showPersons){ //if true
       persons = (
       
-      <div>
+        <Persons
+        persons={this.state.persons}
+        clicked={this.deletePersonHandler}
+        changed={this.nameChangedHandler}  
+        />
 
-        {this.state.persons.map((person,index) => { 
+        /* no need currently coz This part is moved to Persons.js
+        
+        this.state.persons.map((person,index) => { 
           //if there are more then 1 perameter have to raped up by ()
           //this feature is for  js vanela
           //will delete if click on the text
@@ -149,9 +157,16 @@ class App extends Component {
           children = {"hi"}
           changed={(event)=>this.nameChangedHandler(event,person.id)}/> //4.9 no video
           </ErrorBoundary>
-        })}
+        })*/
 
-       {/* <Person 
+
+
+
+
+
+
+
+       /* <Person 
           name='zahin' 
           age = '20'/>
         <Person 
@@ -168,8 +183,8 @@ class App extends Component {
           name={this.state.persons[1].name} 
           age={this.state.persons[1].age}
           click = {this.switchNameHandler.bind(this,'Max!*')}>Click This Paragraph</Person>
-       */}
-        </div>
+       */
+
       );
       /*style.backgroundColor = 'red'; //it was for radium
       style[':hover']= {
@@ -177,59 +192,48 @@ class App extends Component {
         color:'white'
       }*/
 
-      btnClass.push(classes.Red); //using for EJECT module
+      
     }
 
     //let classes = ['red' , 'bold'].join(' ');
 
+    /*
+    ......this part is moved to Cockpit.js
     let assignedClasses = [];
     if (this.state.persons.length <= 2){
       assignedClasses.push(classes.red); //adding red into the classes array
     }
     if (this.state.persons.length <= 1){
       assignedClasses.push(classes.underLine);
-    }
+    }*/
 
     return (
     //<StyleRoot>
     <div 
     //className="App"
     className={classes.App}>
-      {/*<h1 className={classes}>HI I am Zahin</h1>*/}
-
-      <h1 className={assignedClasses.join(' ')}>HI I am Zahin</h1>
-
-      <p>This is really working</p>
-
-      <button
-      //style={style} 
-      className= {classes.Button}
-      /*have to comment out this Coz redium does
-      not work in multible same style . hav to use
-      id or class or any uniq key
-      */
-      onClick={this.switchNameHandler.bind(this,'Max')}>
-      {/*<button onClick={()=> this.switchNameHandler('Max')}> //Should not use
-      </button><button onClick={this.switchNameHandler}> //Another Way
-      */}
-        Switch Name
-      </button>
-      <br></br>
-
-
-      <button /*StyleButton*/
-      //className='button'
-      //style={style} //no need for  styled compornet
-      //alt = {this.state.showPersons}  
-      //alt just a variable which is passing value of this.state.showPersons
-     //className= {classes.Button} eject another for Static
-      className= {btnClass.join(' ')}
-      // ^ making it Dynamic and EJECT will help to done it more easyly
-      onClick={this.togglePersonsHandler}>
-        Show Names 
-       </button>
-        
+      {/*<h1 className={classes}>HI I am Zahin</h1>*/} 
      
+      {/*[importent] : Things are moved to the Cockpit.js*/}
+     
+      <button
+        //style={style} 
+        className= {classes.Button}
+        /*have to comment out this Coz redium does
+        not work in multible same style . hav to use
+        id or class or any uniq key
+        */
+        onClick={this.switchNameHandler.bind(this,'Max')}>
+        {/*<button onClick={()=> this.switchNameHandler('Max')}> //Should not use
+        </button><button onClick={this.switchNameHandler}> //Another Way
+        */}
+        Switch Name
+        </button>
+
+      <Cockpit 
+      showPersons={this.state.showPersons}
+      persons={this.state.persons}
+      clicked={this.togglePersonsHandler}/>
       {persons}
 
      {/* <Person 
