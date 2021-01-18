@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import './App.css';
+//import './App.css';
+import classes from './App.css'; //hav to run 'npm run eject' in project folder
+// ^in here all the class of App.css will be property of 'classes'
+
+
 //import  Radium  ,{ StyleRoot }from 'radium';  //comment out coz using styled-components.com
 /*install Radum package by typing in project 
 folder 'npm install -- save radium'
@@ -7,13 +11,14 @@ Radium is a most propuler package for raact which allow us
 us to use inline style with sudo Selector[Ex: .mover]*/
 //StyleRoot using for rap all function from Person.js
 
-import styled from 'styled-components';
+//import styled from 'styled-components';
 import Person from './Person/Person';
+
 
 //import './Person/Person.css';
 
 
-const StyleButton = styled.button`
+/*const StyleButton = styled.button`
      // background-Color: white;
      background-color: ${props => props.alt ? 'red' : 'green'}; 
      //if alt is true clolor gonna be red
@@ -27,7 +32,7 @@ const StyleButton = styled.button`
         background-Color: black;
         color: white;
       }
-`;
+`;*/
 
 class App extends Component {   
   state={
@@ -164,20 +169,22 @@ class App extends Component {
 
     //let classes = ['red' , 'bold'].join(' ');
 
-    let classes = [];
+    let assignedClasses = [];
     if (this.state.persons.length <= 2){
-      classes.push('red'); //adding red into the classes array
+      assignedClasses.push(classes.red); //adding red into the classes array
     }
     if (this.state.persons.length <= 1){
-      classes.push('underLine');
+      assignedClasses.push(classes.underLine);
     }
 
     return (
     //<StyleRoot>
-    <div className="App">
+    <div 
+    //className="App"
+    className={classes.App}>
       {/*<h1 className={classes}>HI I am Zahin</h1>*/}
 
-      <h1 className={classes.join(' ')}>HI I am Zahin</h1>
+      <h1 className={assignedClasses.join(' ')}>HI I am Zahin</h1>
 
       <p>This is really working</p>
 
@@ -196,13 +203,16 @@ class App extends Component {
       <br></br>
 
 
-      <StyleButton /*button*/
+      <button /*StyleButton*/
+      //className='button'
       //style={style} //no need for  styled compornet
-      alt = {this.state.showPersons}  
+      //alt = {this.state.showPersons}  
       //alt just a variable which is passing value of this.state.showPersons
+      classesName= {classes.Button}
+      // ^ making it Dynamic and EJECT will help to done it more easyly
       onClick={this.togglePersonsHandler}>
         Show Names 
-       </StyleButton>
+       </button>
         
      
       {persons}

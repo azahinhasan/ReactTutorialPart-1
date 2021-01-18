@@ -15,3 +15,15 @@
 }
 
 
+.Button{
+  background-color: green; 
+  font: inherit;
+  border: 1x solid blue;
+  padding: 8px;
+  cursor: pointer;
+}
+
+ .Button:hover {  
+   background-Color: black;
+   color: white;
+ }
