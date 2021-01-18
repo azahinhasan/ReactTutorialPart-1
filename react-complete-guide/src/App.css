@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+
 }
 
 .red {
@@ -27,3 +28,11 @@
    background-Color: black;
    color: white;
  }
+
+.Button.Red{
+  background-color: rgb(247, 16, 16);
+}
+
+.Button.Red:hover{
+  background-color: rgb(201, 186, 186);
+}

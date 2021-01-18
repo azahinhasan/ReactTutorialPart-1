@@ -14,6 +14,9 @@ us to use inline style with sudo Selector[Ex: .mover]*/
 //import styled from 'styled-components';
 import Person from './Person/Person';
 
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
+// ^this import for find or detect error
+
 
 //import './Person/Person.css';
 
@@ -121,6 +124,9 @@ class App extends Component {
 
     
     let persons = null;
+    let btnClass = [classes.Button]; 
+    // ^ avable by Eject npm moduel
+    //classes.Button is the pointer of CSS moduel package 
 
     if(this.state.showPersons){ //if true
       persons = (
@@ -131,13 +137,18 @@ class App extends Component {
           //if there are more then 1 perameter have to raped up by ()
           //this feature is for  js vanela
           //will delete if click on the text
-          return <Person 
+          return <ErrorBoundary key = {person.id}><Person  //ErrorBoundary is for debugging
+          // ^key come here becouse it is now outer boundery of MAP Methord
+          // [impoternt:] only use ErrorBoundary where I am sure it will me fail or gonna have error
+          // key always be outer boundery
+          //key help to Track React what ever we are deleting or editing
           click = {() => this.deletePersonHandler(index)}
           name = {person.name}
           age= {person.age} 
-          key = {person.id}
+          //key = {person.id}
           children = {"hi"}
           changed={(event)=>this.nameChangedHandler(event,person.id)}/> //4.9 no video
+          </ErrorBoundary>
         })}
 
        {/* <Person 
@@ -165,6 +176,8 @@ class App extends Component {
         backgroundColor:'green',
         color:'white'
       }*/
+
+      btnClass.push(classes.Red); //using for EJECT module
     }
 
     //let classes = ['red' , 'bold'].join(' ');
@@ -190,6 +203,7 @@ class App extends Component {
 
       <button
       //style={style} 
+      className= {classes.Button}
       /*have to comment out this Coz redium does
       not work in multible same style . hav to use
       id or class or any uniq key
@@ -208,7 +222,8 @@ class App extends Component {
       //style={style} //no need for  styled compornet
       //alt = {this.state.showPersons}  
       //alt just a variable which is passing value of this.state.showPersons
-      classesName= {classes.Button}
+     //className= {classes.Button} eject another for Static
+      className= {btnClass.join(' ')}
       // ^ making it Dynamic and EJECT will help to done it more easyly
       onClick={this.togglePersonsHandler}>
         Show Names 
