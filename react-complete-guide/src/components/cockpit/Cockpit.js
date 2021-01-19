@@ -10,7 +10,16 @@ const cockpit = (props)=>{
   useEffect(() => { //take a function by default whic will run for every lifeCycle
     console.log('[CockPit.js] useEffect...');
     //can do HTTP Req there
-  });
+    setTimeout(() =>{
+      alert('Saved data to cloud!');
+    },1000);
+
+    
+  },[ ]); 
+  // [ ] is a arguments
+  //[ ] this empty array mean there is no dependency so,It will run only for fast time
+  // if use [pros.persons] than it will execute when we cange persons
+
 
     let assignedClasses = [];
    // let btnClass = [classes.Button]; 

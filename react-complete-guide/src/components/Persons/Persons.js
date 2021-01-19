@@ -19,6 +19,10 @@ class Persons extends Component{
     console.log('[Persons.js] getSnapshotBeforeUpdate');
   }
 
+  componentWillUnmount(){
+    //run after when component distroyed
+    console.log('[Persons.js] componentWillUnmount..');
+  }
 
   render(){
     console.log('[Persons.js] rendering...');
