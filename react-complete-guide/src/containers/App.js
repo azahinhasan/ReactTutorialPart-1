@@ -40,6 +40,13 @@ import Cockpit from '../components/cockpit/Cockpit';
 `;*/
 
 class App extends Component {   
+
+
+  constructor(props){
+    super(props);
+    console.log('[App.js] constructor');
+  }
+
   state={
     persons:[   //array of JS object
       {id:1,name:"yo",age:28},
@@ -50,6 +57,35 @@ class App extends Component {
     showPersons:false
   };
   
+  static getDerivedStateFromProps(props,state){
+    console.log('[App.js] getDerivedStateFromProps',props);
+    return state;
+
+  }
+
+  componentDidMount(){  //its make HTTP request
+    console.log('[App.js] componentDidMount');
+  }
+
+  shouldComponentUpdate(nextProps,nextState){
+    console.log('[App.js] shouldComponentUpdate');
+    //console.log(nextProps+" "+nextState);
+    return true; //have to return some thing. Return nothing is not a option
+  }
+  getSnapshotBeforeUpdate(perProps,preState){
+    console.log('[App.js] getSnapshotBeforeUpdate');
+  }
+
+
+
+  /*for class component lifecycle :> 
+    getDerivedStateFromProps[sync State to Props and Cause Side-Effects] -> shouldComponentUpdate[Decide whether to Continue or Not and Cause Side-Effects] ->
+    render[Prepare & Structure your JSX Code] -> Update Child Component Props ->
+    getSnapshotBeforeUpdate[Last-minute DOM ops and Cause Side-Effects] -> componentDidUpdate[Cause Side-Effects and : Update State(triggers re-render)]
+  */
+
+  /*for function */
+
   switchNameHandler=(newName)=>{  //program is dynamic now So,no need of this
     console.log('was clicked!');
     // no need to do
@@ -110,6 +146,9 @@ class App extends Component {
   }
 
   render() {
+
+   
+
       /* this part was for radium
       const style = {  //its call inline styling 
       backgroundColor: 'white',
@@ -124,7 +163,7 @@ class App extends Component {
       }
     };*/
 
-    
+    console.log('[App.js] render');
     let persons = null;
    
     // ^ avable by Eject npm moduel
@@ -231,6 +270,7 @@ class App extends Component {
         </button>
 
       <Cockpit 
+      title={this.props.appTitle}
       showPersons={this.state.showPersons}
       persons={this.state.persons}
       clicked={this.togglePersonsHandler}/>

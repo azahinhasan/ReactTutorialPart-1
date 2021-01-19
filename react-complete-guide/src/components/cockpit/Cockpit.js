@@ -1,8 +1,16 @@
-import React from 'react';
+//import React from 'react';
+import React,{useEffect} from 'react'; //useeeffect is the most importent Reack hook
+/*useEffect hook is  like combined of all lifeCycle(componentDidMount, componentDidUpdate, 
+and componentWillUnmount)*/
+
 import classes from './Cockpit.css'
 
 const cockpit = (props)=>{
 
+  useEffect(() => { //take a function by default whic will run for every lifeCycle
+    console.log('[CockPit.js] useEffect...');
+    //can do HTTP Req there
+  });
 
     let assignedClasses = [];
    // let btnClass = [classes.Button]; 
@@ -25,7 +33,8 @@ const cockpit = (props)=>{
     <div className={classes.Cockpit}>
         <h1 className={assignedClasses.join(' ')}>HI I am Zahin</h1>
 
-        <p>This is really working</p>
+        {/*<p>This is really working</p>*/}
+        <p>{props.title}</p>
 
 
 
