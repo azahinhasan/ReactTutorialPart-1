@@ -3,7 +3,7 @@ import React,{Component,Fragment} from 'react';
 import classes from './Person.css';
 //import styled from 'styled-components';
 //import Radium from 'radium';
-import Aux from '../../../hoc/Auxiliary'
+import Aux from '../../../hoc/Auxiliary';
 
 
 
@@ -51,12 +51,13 @@ class Person extends Component{ //class based compornent....
            //They are same but Fragemnt is React bulid-in JSX compornent 
            //which have to "import React,{Component,Fragment} from 'react';""
             <Aux> 
-           
                 <p onClick={this.props.click}>I'm {this.props.name}! I am {this.props.age} year old</p>
                <p>{this.props.children}</p>
                 <input type="text" onChange={this.props.changed} value={this.props.name}/>
-            
             </Aux>
+            /*there is no class name with Aux thats way ther is no
+            at site on each Person.Aux is without class Compornet.
+            with class there is another file at same folder called withClass.js*/
 
             
            

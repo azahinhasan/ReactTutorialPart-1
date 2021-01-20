@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 //import './App.css';
 import classes from './App.css'; //hav to run 'npm run eject' in project folder
 // ^in here all the class of App.css will be property of 'classes'
-
+import WithClass from '../hoc/WithClass'
 
 //import  Radium  ,{ StyleRoot }from 'radium';  //comment out coz using styled-components.com
 /*install Radum package by typing in project 
@@ -250,9 +250,12 @@ class App extends Component {
 
     return (
     //<StyleRoot>
-    <div 
-    //className="App"
-    className={classes.App}>
+    // <div 
+    // //className="App"
+    // className={classes.App}>
+    <WithClass classes={classes.App}>
+      {/*Working thike <div>. This kind of compornent help to
+      error handling when we are making HTTP req or ELCE*/}
       {/*<h1 className={classes}>HI I am Zahin</h1>*/} 
      
       {/*[importent] : Things are moved to the Cockpit.js*/}
@@ -296,7 +299,8 @@ class App extends Component {
         Type SomeThing here
         </Person>
   */}
-    </div>
+  </WithClass>
+   // </div>
     //</StyleRoot>
      //React.createElement('div',{className:'App'},React.createElement('h1',null,'h1','hi im zahin'))  //JSX its give acess html write in JS file
 
