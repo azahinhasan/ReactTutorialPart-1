@@ -54,7 +54,8 @@ class App extends Component {
       {id:3,name:"Mofi",age:30}
     ],
     otherState:'some other value',
-    showPersons:false
+    showPersons:false,
+    showCockpit:true
   };
   
   static getDerivedStateFromProps(props,state){
@@ -65,6 +66,7 @@ class App extends Component {
 
   componentDidMount(){  //its make HTTP request
     console.log('[App.js] componentDidMount');
+    
   }
 
   shouldComponentUpdate(nextProps,nextState){
@@ -255,6 +257,12 @@ class App extends Component {
      
       {/*[importent] : Things are moved to the Cockpit.js*/}
      
+
+
+
+      <button
+      onClick={()=>{this.setState({showCockpit:false});
+      }}>Hide Cockpit</button>
       <button
         //style={style} 
         className= {classes.Button}
@@ -269,11 +277,15 @@ class App extends Component {
         Switch Name
         </button>
 
+      { this.state.showCockpit ? (
+      //if this.state.showCockpit is true
       <Cockpit 
       title={this.props.appTitle}
       showPersons={this.state.showPersons}
       persons={this.state.persons}
       clicked={this.togglePersonsHandler}/>
+      ) : null }
+    
       {persons}
 
      {/* <Person 

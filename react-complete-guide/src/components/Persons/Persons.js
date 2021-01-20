@@ -1,20 +1,37 @@
 //import React from 'react'; //for funciton based compornent
-import React , {Component} from 'react'; //for class based compornent
+//import React , {Component} from 'react'; //for class based compornent
+import React , {PureComponent} from 'react';
+/*it will help to do shouldComponentUpdate() part autometicly 
+without donint extra code*/
 import Person from './Person/Person';
 
 
 
 
-
-class Persons extends Component{
+class Persons extends PureComponent{
+//class Persons extends Component{
 
   static getDerivedStateFromProps(props,state){
       console.log("[Pesons.js] getDerivedStateFromProps")
   }
-  shouldComponentUpdate(nextProps,nextState){
-    console.log('[Persons.js] shouldComponentUpdate');
-    return true; //have to return some thing. Return nothing is not a option
-  }
+  // shouldComponentUpdate(nextProps,nextState){
+  //   console.log('[Persons.js] shouldComponentUpdate');
+  //   /*for the IF condition it will not re-render full page 
+  //   again if we changed name or anything but if we click on Hide Cockpit
+  //   it will not re-render coz there is no value chage.
+  //   which is a really powerfull and good for performence optimization*/
+  //   /*this if condition work like React.memo(Persons);*/
+  //   if(nextProps.persons !== this.props.persons ||
+  //     nextProps.changed !== this.props.changed ||
+  //     nextProps.clicked !== this.props.clicked){
+  //       / ^in there compering pointers not values
+  //     return true;
+  //   }else{
+  //     return false;
+  //   }
+  //   /return true;
+  //    /have to return some thing. Return nothing is not a option
+  // }
   getSnapshotBeforeUpdate(perProps,preState){
     console.log('[Persons.js] getSnapshotBeforeUpdate');
   }

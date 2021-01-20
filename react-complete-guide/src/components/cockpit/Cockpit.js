@@ -65,5 +65,8 @@ const cockpit = (props)=>{
 };
 
 
+//export default React.memo(cockpit);
+/*React.memo is a memowais technique where it will store snapshot 
+of Cockpit and only it will re-render when input changes*/
+/*its work like shouldComponentUpdate() with IF-Else condition*/
 export default cockpit;
-
