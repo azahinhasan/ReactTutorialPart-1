@@ -4,8 +4,7 @@ import classes from './Person.css';
 //import styled from 'styled-components';
 //import Radium from 'radium';
 import Aux from '../../../hoc/Auxiliary';
-
-
+import withClass from '../../../hoc/WithClass';
 
 /*const StyledDiv = styled.div`
     width: 60%;
@@ -91,5 +90,7 @@ class Person extends Component{ //class based compornent....
 };*/
 
 //export default Radium(person);
-//export default person;
-export default Person; //for class based coz name of class is Person
+//export default person; //for Function base
+//export default Person; //for class based coz name of class is Person
+
+export default withClass(Person,classes.Person); 

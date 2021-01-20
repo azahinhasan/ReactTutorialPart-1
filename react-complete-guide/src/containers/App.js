@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 //import './App.css';
 import classes from './App.css'; //hav to run 'npm run eject' in project folder
 // ^in here all the class of App.css will be property of 'classes'
-import WithClass from '../hoc/WithClass'
+
 
 //import  Radium  ,{ StyleRoot }from 'radium';  //comment out coz using styled-components.com
 /*install Radum package by typing in project 
@@ -21,6 +21,10 @@ import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/cockpit/Cockpit';
+import Aux from '../hoc/Auxiliary';
+import withClass from '../hoc/WithClass';
+/*withClass start with smaller letter 'w'
+ coz we not gonna use it as compornet anymore*/
 
 
 /*const StyleButton = styled.button`
@@ -253,7 +257,7 @@ class App extends Component {
     // <div 
     // //className="App"
     // className={classes.App}>
-    <WithClass classes={classes.App}>
+    <Aux>
       {/*Working thike <div>. This kind of compornent help to
       error handling when we are making HTTP req or ELCE*/}
       {/*<h1 className={classes}>HI I am Zahin</h1>*/} 
@@ -299,7 +303,7 @@ class App extends Component {
         Type SomeThing here
         </Person>
   */}
-  </WithClass>
+  </Aux>
    // </div>
     //</StyleRoot>
      //React.createElement('div',{className:'App'},React.createElement('h1',null,'h1','hi im zahin'))  //JSX its give acess html write in JS file
@@ -308,8 +312,9 @@ class App extends Component {
   }
 }
 
-export default App;
-
+//export default App;
+export default withClass(App, classes.App);/*this is for withClass HOCs more in
+                                            hoc/WithClass.js*/
 //export default Radium(App);
  
 //its called HigherOrder compornent
