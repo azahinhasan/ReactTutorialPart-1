@@ -4,7 +4,7 @@ import React , {PureComponent} from 'react';
 /*it will help to do shouldComponentUpdate() part autometicly 
 without donint extra code*/
 import Person from './Person/Person';
-
+import AuthContext from '../../context/auth-context';
 
 
 
@@ -43,7 +43,13 @@ class Persons extends PureComponent{
 
   render(){
     console.log('[Persons.js] rendering...');
-    return this.props.persons.map((person,index) => { 
+    return (
+    <AuthContext.Consumer>
+      {/*Consumer does not take js code as child
+      but its take funciton from between opening and closing tag.
+      For this reason we are caling Context funciton blown*/}
+    {(context) => this.props.persons.map((person,index) => { 
+      /*This ^function will get our context obj.Retun it to the consumer*/
       //if there are more then 1 perameter have to raped up by ()
       //this feature is for  js vanela
       //will delete if click on the text
@@ -58,9 +64,10 @@ class Persons extends PureComponent{
       key = {person.id}
       children = {"hi"}
       changed={(event)=>this.props.changed(event,person.id)}/> //4.9 no video
-  
-    })
-  };
+      
+    })}  
+  </AuthContext.Consumer>
+  );
 }
 
 
@@ -85,6 +92,6 @@ class Persons extends PureComponent{
     changed={(event)=>props.changed(event,person.id)}/> //4.9 no video
 
   })};*/
-
+}
   //export default persons; // for fumction based
   export default Persons; //for class based coz name of class is Person

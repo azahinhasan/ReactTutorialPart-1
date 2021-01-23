@@ -25,6 +25,7 @@ import Aux from '../hoc/Auxiliary';
 import withClass from '../hoc/WithClass';
 /*withClass start with smaller letter 'w'
  coz we not gonna use it as compornet anymore*/
+ import AuthContext from '../context/auth-context'
 
 
 /*const StyleButton = styled.button`
@@ -55,11 +56,14 @@ class App extends Component {
     persons:[   //array of JS object
       {id:1,name:"yo",age:28},
       {id:2,name:"Mr.Hender",age:27},
-      {id:3,name:"Mofi",age:30}
+      {id:3,name:"Mofi",age:30},
+      {name:"Z",age:"10"}  /*This line for prop-types.More in Person.js*/
     ],
     otherState:'some other value',
     showPersons:false,
-    showCockpit:true
+    showCockpit:true,
+    changeCounter:0,
+    authenticated:false
   };
   
   static getDerivedStateFromProps(props,state){
@@ -99,8 +103,9 @@ class App extends Component {
     this.setState({
       persons:[
         {name:newName,age:28},
-        {name:"Khalifa",age:27},
+        {name:"Khalifa",age:27}, 
         {name:"Mofix",age:30}
+        
         
       ]
     })
@@ -131,7 +136,23 @@ class App extends Component {
     const persons = [...this.state.persons];
     
     persons[personIndex] = person;
-    this.setState({persons: persons});
+    /*this.setState(
+      {persons: persons,
+        changeCounter : this.state.changeCounter+1 //work like i++
+
+      });*/
+
+      /****another way to state update an good practice
+       * without chageCounter Privious one is OK
+      */
+
+      this.setState((prevState,props)=>{
+        return {
+          persons: persons,
+          changeCounter : prevState.changeCounter+1 //work like i++ and its a Counter
+        }
+        });
+      
 
     /*this.setState({
       persons:[
@@ -149,6 +170,10 @@ class App extends Component {
     const doesShow = this.state.showPersons;
     this.setState({showPersons : !doesShow}); //if doesShow is false 
                                               // showPersons will me true
+  }
+
+  loginHandler=()=>{
+    this.setState({authenticated:true})
   }
 
   render() {
@@ -284,17 +309,25 @@ class App extends Component {
         Switch Name
         </button>
 
-      { this.state.showCockpit ? (
-      //if this.state.showCockpit is true
-      <Cockpit 
-      title={this.props.appTitle}
-      showPersons={this.state.showPersons}
-      persons={this.state.persons}
-      clicked={this.togglePersonsHandler}/>
-      ) : null }
+      <AuthContext.Provider 
+      value={{
+      authenticated:this.state.authenticated,
+      login: this.loginHandler
+      }}>
+        {/*Provider take value props*/}
+          { this.state.showCockpit ? (
+          //if this.state.showCockpit is true
+          <Cockpit 
+          title={this.props.appTitle}
+          showPersons={this.state.showPersons}
+          persons={this.state.persons}
+          clicked={this.togglePersonsHandler}
+          login ={this.loginHandler}/>
+          
+          ) : null }
     
       {persons}
-
+      </AuthContext.Provider>
      {/* <Person 
         name={this.state.persons[2].name} 
         age={this.state.persons[2].age}
@@ -313,7 +346,7 @@ class App extends Component {
 }
 
 //export default App;
-export default withClass(App, classes.App);/*this is for withClass HOCs more in
+export default withClass(App, classes.App);/*this is for wit hClass HOCs more in
                                             hoc/WithClass.js*/
 //export default Radium(App);
  

@@ -1,21 +1,28 @@
 //import React from 'react';
-import React,{useEffect} from 'react'; //useeeffect is the most importent Reack hook
+import React,{useEffect,useRef} from 'react'; //useeeffect is the most importent Reack hook
 /*useEffect hook is  like combined of all lifeCycle(componentDidMount, componentDidUpdate, 
 and componentWillUnmount)*/
 
-import classes from './Cockpit.css'
+import classes from './Cockpit.css';
+import AuthContext from '../../context/auth-context';
+
 
 const cockpit = (props)=>{
 
-  useEffect(() => { //take a function by default whic will run for every lifeCycle
+
+  const toggleBtnRef = useRef(null);
+
+  useEffect(() => { //take a function by default whic will run for every render lifeCycle
+    //userEffefct run after Return of JS rendering part
     console.log('[CockPit.js] useEffect...');
     //can do HTTP Req there
     setTimeout(() =>{
       alert('Saved data to cloud!');
     },1000);
+    toggleBtnRef.current.click();
 
     
-  },[ ]); 
+  },[]); 
   // [ ] is a arguments
   //[ ] this empty array mean there is no dependency so,It will run only for fast time
   // if use [pros.persons] than it will execute when we cange persons
@@ -38,7 +45,7 @@ const cockpit = (props)=>{
       assignedClasses.push(classes.underLine);
     }
 
-    return(
+    return(  //here jsx code render for us
     <div className={classes.Cockpit}>
         <h1 className={assignedClasses.join(' ')}>HI I am Zahin</h1>
 
@@ -55,11 +62,18 @@ const cockpit = (props)=>{
         //className= {classes.Button} eject another for Static
         //className= {btnClass.join(' ')}
         className= {btnClass}
+        ref = {toggleBtnRef}
+        /*ref like key.In here it clicking the button by defult
+        thorugh calling toggleBtnRef*/
         // ^ making it Dynamic and EJECT will help to done it more easyly
         onClick={props.clicked}>
+  
         Show Names 
         </button>
-        <p>jlhlgajlg: {props.showPersons}</p>
+
+        <AuthContext.Consumer>
+          {context => <button onClick={context.login}>Log In</button>}
+        </AuthContext.Consumer>
     </div>
     )
 };
