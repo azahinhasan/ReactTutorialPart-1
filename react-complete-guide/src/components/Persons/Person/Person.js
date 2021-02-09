@@ -84,6 +84,7 @@ class Person extends Component{ //class based compornent....
 
                 <p onClick={this.props.click}>I'm {this.props.name}! I am {this.props.age} year old</p>
                <p>{this.props.children}</p>
+               
                 <input 
                 type="text" 
                 //key="i3"
