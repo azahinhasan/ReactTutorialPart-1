@@ -5,18 +5,20 @@ import FullPost from '../../components/FullPost/FullPost';
 import NewPost from '../../components/NewPost/NewPost';
 import './Blog.css';
 
-import axios from 'axios'; //npm install axios -save 
-import post from '../../components/Post/Post';
+//import axios from 'axios'; //npm install axios -save 
+
+import axios from '../../axios'; //npm install axios -save 
 
 
 class Blog extends Component {
 
     state ={
         posts:[],
-        selectedPostId: null
+        selectedPostId: null,
+        error:false
     }
     componentDidMount(){
-        axios.get('https://jsonplaceholder.typicode.com/posts')  
+        axios.get('/posts')  
         //sourse https://jsonplaceholder.typicode.com/   HELP to create dummy data
                 .then(response =>{
                     const posts = response.data.slice(0,4);
@@ -30,6 +32,10 @@ class Blog extends Component {
                     });
 
                     this.setState({posts:updatedPost});
+                })
+                .catch(error => {
+                    console.log(error);  //for hendeling error or failed 
+                    this.setState({error: true});
                 });
     }
 
@@ -38,14 +44,20 @@ class Blog extends Component {
     }
     render () {
 
-        const posts=this.state.posts.map(post => {
-            return <Post key={post.id} 
-            title={post.title}
-            author={post.author} 
-            clicked={() => this.postSelectedHandler(post.id)}
-            
-            /> 
-        });
+        let posts = <p>Something went Wrong!</p>
+
+        if(!this.state.error){
+            posts=this.state.posts.map(post => {
+                return <Post key={post.id} 
+                title={post.title}
+                author={post.author} 
+                clicked={() => this.postSelectedHandler(post.id)}
+                
+                /> 
+            });
+
+        }
+
 
         return (
 

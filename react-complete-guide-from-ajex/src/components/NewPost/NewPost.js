@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios'; //more on Bloag.js
+//import axios from 'axios'; //more on Bloag.js
+import axios from '../../axios';
 import './NewPost.css';
 
 class NewPost extends Component {
@@ -16,7 +17,8 @@ class NewPost extends Component {
             content:this.state.content,
             author: this.state.author
         }
-        axios.post('https://jsonplaceholder.typicode.com/posts',post)
+        //axios.post('https://jsonplaceholder.typicode.com/posts',post) //no need cos of asios.js
+        axios.post('/posts',post)
         .then(response =>{
             console.log(response);
         })
