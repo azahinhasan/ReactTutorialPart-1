@@ -1,5 +1,6 @@
 import React from 'react';
-
+import { withRouter } from 'react-router-dom';
+// ^help to pass Props data one to another file //video 11.12
 import './Post.css';
 
 const post = (props) => (
@@ -12,3 +13,4 @@ const post = (props) => (
 );
 
 export default post;
+//export default withRouter(post);
