@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 //import axios from 'axios'; //more on Bloag.js
 import axios from '../../axios';
 import './NewPost.css';
-
+import {  Redirect } from 'react-router-dom';
 class NewPost extends Component {
     state = {
         title: '',
         content: '',
-        author: 'Max'
+        author: 'Max',
+        submited:false
     }
 
     postDatahandler=()=>{
@@ -15,18 +16,27 @@ class NewPost extends Component {
         const post={
             title: this.state.title,
             content:this.state.content,
-            author: this.state.author
+            author: this.state.author,
         }
         //axios.post('https://jsonplaceholder.typicode.com/posts',post) //no need cos of asios.js
         axios.post('/posts',post)
         .then(response =>{
             console.log(response);
+           // this.setState({submited:true})
+           //this.props.history.push('/posts');  //push will allow back button action
+           this.props.history.replace('/posts'); //replace will not 
+           // ^take to the /posts Tab 
         })
     }
 
     render () {
+       let redirect = null;
+       if(this.state.submited){
+            redirect= <Redirect to="/posts"/>
+       }
         return (
             <div className="NewPost">
+                {redirect}
                 <h1>Add a Post</h1>
                 <label>Title</label>
                 <input type="text" value={this.state.title} onChange={(event) => this.setState({title: event.target.value})} />

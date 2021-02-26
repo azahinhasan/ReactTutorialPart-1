@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
 import Post from '../components/Post/Post';
-// import FullPost from '../../components/FullPost/FullPost';
+import FullPost from '../components/FullPost/FullPost';
 // import NewPost from '../../components/NewPost/NewPost';
 import   './Posts.css';
 import axios from "../axios";
-
+import { Route, Link , NavLink} from 'react-router-dom';
 //import axios from 'axios'; //npm install axios -save 
 
 
@@ -40,7 +40,9 @@ class Posts extends Component {
     }
 
     postSelectedHandler =(id) =>{
-            this.setState({selectedPostId : id});
+
+            this.props.history.push({pathname: '/posts/'+id});
+           // this.setState({selectedPostId : id});
     }
     render () {
 
@@ -48,13 +50,18 @@ class Posts extends Component {
 
         if(!this.state.error){
             posts=this.state.posts.map(post => {
-                return <Post key={post.id} 
-                title={post.title}
-                author={post.author} 
-                clicked={() => this.postSelectedHandler(post.id)}
+            return (
+                // <Link  to={'/'+post.id}  key={post.id} >
+                <Link  to={this.props.match.url+"/"+post.id}  key={post.id} >
+                    <Post
+                    title={post.title}
+                    author={post.author} 
+                    clicked={() => this.postSelectedHandler(post.id)}
+                    />
+                </Link>
                 
-                /> 
-            });
+            )
+        });
 
         }
 
@@ -66,6 +73,8 @@ class Posts extends Component {
                     {posts}
                 </section>
 
+                <Route path={this.props.match.url+'/:id'} exact component={FullPost}/>
+                {/* ^Nested Dynamic Routes */}
             </div>
         );
     }

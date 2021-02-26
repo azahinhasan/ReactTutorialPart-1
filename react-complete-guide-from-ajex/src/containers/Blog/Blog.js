@@ -4,8 +4,9 @@ import FullPost from '../../components/FullPost/FullPost';
 import NewPost from '../../components/NewPost/NewPost';
 import   './Blog.css';
 import Posts from '../../containers/Posts';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link , NavLink, Switch, Redirect} from 'react-router-dom';
 //Route will reload full-Page but wit Link it will not
+//Link NavLink etc called Spacial Compornent 
 //npm install -save react-router react-router-dom
 
 //import axios from 'axios'; //npm install axios -save 
@@ -26,12 +27,18 @@ class Blog extends Component {
                 <header>
                     <nav>
                         <ul>
-                            <li><Link to="/">Home</Link></li>
-                            <li><Link to={{
+                            <li><NavLink to="/Posts"
+                            exact
+                            activeStyle={{
+                                color:'blue',
+                                textDecoration:'underline'
+                            }}
+                            >Home</NavLink></li>
+                            <li><NavLink to={{
                                 pathname:'/new-post',
                                 // hash: '#submit',
                                 // search:'?quick-submit=true'
-                            }}>Post</Link></li>
+                            }} exact>Post</NavLink></li>
                         </ul>
                     </nav>
                     
@@ -50,8 +57,17 @@ class Blog extends Component {
                 {/* <Route path="/" exact render={() => <h2>Hello</h2>}/>
                 <Route path="/new-post" exact render={() => <h2>Hello2</h2>}/> */}
                 {/* exect==true then Route will active on Path location */}
-                <Route path="/" exact component={Posts}/>
-                <Route path="/new-post" exact component={NewPost}/>
+                <Switch>
+                    {/* Switch will Route only fast one that match*/}
+                    <Route path="/new-post" exact component={NewPost}/>
+                    <Route path="/posts"  component={Posts}/>
+                    <Redirect from="/" to="/posts"/>
+                    {/* ^ Route one link to another link. Its not
+                    Render the page just chage the link*/}
+                    {/* <Route path="/posts/:id" exact component={FullPost}/> */}
+                    {/* <Route path="/:id" exact component={FullPost}/> */}
+                </Switch>
+                
             </div>
         );
     }

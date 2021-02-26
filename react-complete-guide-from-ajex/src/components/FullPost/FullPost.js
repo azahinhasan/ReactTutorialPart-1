@@ -3,25 +3,35 @@ import React, { Component } from 'react';
 import axios from '../../axios';
 import './FullPost.css';
 
+
 class FullPost extends Component {
 
     state={
-        loadedPost: null
+        loadedPost: null,
+        submited:false
     }
 
+    componentDidMount(){
+        this.loadData();
+        
+    }
     componentDidUpdate(){
-        if(this.props.id){
+        this.loadData();
+    }
+
+
+    loadData(){
+        console.log(this.props)
+        if(this.props.match.params.id){
             if(!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.id)){
-                axios.get('/posts/'+this.props.id)
+                axios.get('/posts/'+this.props.match.params.id)
                 .then(response =>{
                     //console.log(response);
                     this.setState({loadedPost: response.data});
                 });
             }
-        }  
+        } 
     }
-
-
 deletePostHandler = () =>{
     axios.delete('/posts/'+this.props.id)
     .then(response =>{
