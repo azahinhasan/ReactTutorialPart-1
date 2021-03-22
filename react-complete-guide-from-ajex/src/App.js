@@ -11,7 +11,8 @@ import { BrowserRouter } from 'react-router-dom';
 class App extends Component {
   render() {
     return (
-      <BrowserRouter>
+      // <BrowserRouter basename="/my-app"> //use basename to define the main route point
+      <BrowserRouter basename="/my-app">
         <div className="App">
           <Blog />
         </div>
