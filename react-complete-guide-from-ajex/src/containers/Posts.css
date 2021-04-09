@@ -1,9 +1,11 @@
 .Posts {
-    display: flex;
+    /* display: flex;
     flex-flow: row wrap;
     justify-content: center;
     width: 80%;
-    margin: auto;
+    margin: auto; */
+    background-color: antiquewhite;
+    
 }
 
 .Blog ul {
@@ -11,6 +13,7 @@
     margin : 0;
     padding: 0%;
     text-align: center;
+    
     font-weight: bold;
 }
 
